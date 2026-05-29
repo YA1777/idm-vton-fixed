@@ -58,11 +58,8 @@ class Predictor(cog.Predictor):
             requires_safety_checker=False,
         )
 
-    @cog.input("human_img", type=cog.Path, help="人物照片")
-    @cog.input("garm_img", type=cog.Path, help="衣服照片")
-    @cog.input("category", type=str, default="upper_body",
-               options=["upper_body", "lower_body", "dresses"])
-    def predict(self, human_img, garm_img, category):
+    def run(self, human_img: cog.Path, garm_img: cog.Path,
+            category: str = "upper_body") -> cog.Path:
         person = Image.open(str(human_img)).resize((384, 512))
         cloth = Image.open(str(garm_img)).resize((384, 512))
         person_np = np.array(person)
