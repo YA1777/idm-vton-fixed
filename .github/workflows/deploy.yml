@@ -20,6 +20,8 @@ jobs:
 
       - name: Cog Build
         run: cog build
+        env:
+          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
 
       - name: Cog Push to Replicate
         run: cog push ya1777/idm-vton-fixed
