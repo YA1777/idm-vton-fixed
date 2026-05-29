@@ -1,0 +1,27 @@
+name: Build and Push to Replicate
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Install Cog
+        run: |
+          curl -o /usr/local/bin/cog -L https://github.com/replicate/cog/releases/latest/download/cog_$(uname -s)_$(uname -m)
+          chmod +x /usr/local/bin/cog
+
+      - name: Cog Build
+        run: cog build
+
+      - name: Cog Push to Replicate
+        run: cog push ya1777/idm-vton-fixed
+        env:
+          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
