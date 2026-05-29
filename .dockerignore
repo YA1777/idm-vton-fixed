@@ -1,0 +1,5 @@
+.git
+.github
+*.pyc
+__pycache__
+download_weights.py
